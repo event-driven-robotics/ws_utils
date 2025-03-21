@@ -1,0 +1,29 @@
+#!/bin/bash
+# Bold High Intensity
+BIBlack='\033[1;90m'      # Black
+BIRed='\033[1;91m'        # Red
+BIGreen='\033[1;92m'      # Green
+BIYellow='\033[1;93m'     # Yellow
+BIBlue='\033[1;94m'       # Blue
+BIPurple='\033[1;95m'     # Purple
+BICyan='\033[1;96m'       # Cyan
+BIWhite='\033[1;97m'      # White
+BIOrange='\033[1;38;5;208m' # Orange
+
+NC='\033[0m' # No Color
+
+PPID1=`cat /proc/$PPID/status | grep PPid | awk '{ print $2 }'`
+PPID2=`cat /proc/$PPID1/status | grep PPid | awk '{ print $2 }'`
+USER_NAME=`ps -x | grep $PPID2 | awk '{ print $6 }' |  sed "s/[[:digit:].-]//g"`
+
+echo
+echo
+echo -e "${BIRed}Hi ${USER_NAME}, welcome to the Event Driven Perception for Robotics workstation.${NC}"
+echo -e "${BIOrange}Please find here some guidelines on how to correctly use the workstation:${NC}"
+echo -e "${BIYellow}    1. Always notify on the Teams channel before heavy jobs. Use nvidia-smi and htop to check usage.${NC}"
+echo -e "${BIGreen}    2. Always run your code in Docker or virtual environment.${NC}"
+echo -e "${BICyan}    3. To mount remote servers use the provided commands (try typing mnt_ + TAB. Run with -h for help).${NC}"
+echo -e "${BIBlue}    4. Please go to https://github.com/event-driven-robotics/ws_utils for a more comprehensive guide.${NC}"
+echo -e "${BIPurple}    5. For any further questions or requests contact massimiliano.iacono@iit.it. Happy coding!${NC}"
+echo
+echo
