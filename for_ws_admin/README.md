@@ -25,3 +25,7 @@ non root access ti all member of group.
 sudo apt install members
 for m in `members eventdrivenperceptionforrobotics_users`; do sudo usermod -aG docker $m; done
 ```
+
+# MOTD
+
+Make 99-edpr executable and add line to bash.bashrc to run it

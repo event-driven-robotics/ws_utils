@@ -14,11 +14,10 @@ NC='\033[0m' # No Color
 
 PPID1=`cat /proc/$PPID/status | grep PPid | awk '{ print $2 }'`
 PPID2=`cat /proc/$PPID1/status | grep PPid | awk '{ print $2 }'`
-USER_NAME=`ps -x | grep $PPID2 | awk '{ print $6 }' |  sed "s/[[:digit:].-]//g"`
 
 echo
 echo
-echo -e "${BIRed}Hi ${USER_NAME}, welcome to the Event Driven Perception for Robotics workstation.${NC}"
+echo -e "${BIRed}Hi ${USER}, welcome to the Event Driven Perception for Robotics workstation.${NC}"
 echo -e "${BIOrange}Please find here some guidelines on how to correctly use the workstation:${NC}"
 echo -e "${BIYellow}    1. Always notify on the Teams channel before heavy jobs. Use nvidia-smi and htop to check usage.${NC}"
 echo -e "${BIGreen}    2. Always run your code in Docker or virtual environment.${NC}"
