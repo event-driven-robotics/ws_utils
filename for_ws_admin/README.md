@@ -15,7 +15,13 @@ alias mnt_ns008_workspace="mount_smb_storage.sh -s iiticubns008.iit.local -f wor
 ```
 # Virtualenvwrapper
 
-After installing it with ``sudo apt install python3-virtualenvwrapper`` enable it for all users by adding ``source /usr/share/virtualenvwrapper/virtualenvwrapper.sh`` at the beginning of ``/etc/bash.bashrc``
+After installing it with ``sudo apt install python3-virtualenvwrapper`` enable it for all users by adding 
+```
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3 # Useful to get rid of warning messages in vscode (non-login shell)
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+```
+
+at the beginning of ``/etc/bash.bashrc``
 
 # Docker
 After installing it following [this guide](https://docs.docker.com/engine/install/ubuntu/) we can enable 
