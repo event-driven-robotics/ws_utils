@@ -28,4 +28,4 @@ for m in `members eventdrivenperceptionforrobotics_users`; do sudo usermod -aG d
 
 # MOTD
 
-Make 99-edpr executable and add line to bash.bashrc to run it
+Make motd-edpr executable and add line to bash.bashrc to run it
