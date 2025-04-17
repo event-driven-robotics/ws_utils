@@ -32,7 +32,13 @@ sudo apt install members
 for m in `members eventdrivenperceptionforrobotics_users`; do sudo usermod -aG docker $m; done
 ```
 
-Install wrapper to force running containers as current user : ``sudo cp docker-wrapper /usr/local/bin/docker``
+Now we want to restrict user permissions when running container by installing the docker-wrapper found in this directory: ``sudo cp docker-wrapper /usr/local/bin/docker``
+
+In order for it to work properly all the docker users should have an entry in the `/etc/passwd` file. If they are not use the following command to append users in that file:
+```
+sudo su
+(for m in `members eventdrivenperceptionforrobotics_users`; do getent passwd $m; done) >> /etc/passwd
+```
 
 # MOTD
 
