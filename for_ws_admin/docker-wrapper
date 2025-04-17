@@ -1,0 +1,52 @@
+#!/bin/bash
+
+BIYellow='\033[1;93m'     # Yellow
+NC='\033[0m' # No Color
+
+add_user_flag=false
+has_user_root=false
+args=("$@")
+
+for ((i=0; i<${#args[@]}; i++)); do
+    arg="${args[$i]}"
+
+    # Detect user flag with root
+    if [[ "$arg" == "--user" || "$arg" == "-u" ]]; then
+        next="${args[$((i+1))]}"
+        if [[ "$next" == "root" || "$next" == "0" ]]; then
+            has_user_root=true
+            break
+        fi
+        ((i++))
+        continue
+    elif [[ "$arg" == --user=root || "$arg" == -u=root || "$arg" == --user=0 || "$arg" == -u=0 ]]; then
+        has_user_root=true
+        break
+    fi
+    # Detect volume flags
+    if [[ "$arg" == --volume=* ]]; then
+        vol="${arg#*=}"
+    elif [[ "$arg" == "--volume" || "$arg" == "-v" ]]; then
+        vol="${args[$((i+1))]}"
+        ((i++))
+    elif [[ "$arg" == -v* ]]; then
+        vol="${arg#-v}"
+    else
+        continue
+    fi
+
+    # Check for writable volume
+    if [[ "$vol" != *":ro" ]]; then
+        add_user_flag=true
+    fi
+done
+
+if [[ "${args[0]}" == "run" && "$add_user_flag" == true && "$has_user_root" == false ]]; then
+    echo -e "${BIYellow}Warning: Detected writable shared volume. Running as $USER instead of root."
+    echo "Your home directory is mounted in the container at $HOME."
+    echo "Add --user root to override this behavior or use read-only volumes."
+    echo -e "${NC}"
+    exec /usr/bin/docker run --user "$(id -u):$(id -g)" -v /etc/passwd:/etc/passwd:ro -v $HOME:$HOME "${args[@]:1}"
+else
+    exec /usr/bin/docker "${args[@]}"
+fi

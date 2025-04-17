@@ -25,12 +25,14 @@ at the beginning of ``/etc/bash.bashrc``
 
 # Docker
 After installing it following [this guide](https://docs.docker.com/engine/install/ubuntu/) we can enable 
-non root access ti all member of group.
+non root access to all member of group.
 
 ``` 
 sudo apt install members
 for m in `members eventdrivenperceptionforrobotics_users`; do sudo usermod -aG docker $m; done
 ```
+
+Install wrapper to force running containers as current user : ``sudo cp docker-wrapper /usr/local/bin/docker``
 
 # MOTD
 
